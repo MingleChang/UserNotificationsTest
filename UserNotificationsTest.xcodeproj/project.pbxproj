@@ -17,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		82AAF77F1DB903BD0056C031 /* UserNotificationsTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UserNotificationsTest.entitlements; sourceTree = "<group>"; };
 		82CDB93E1DB7B2AD00111C63 /* UserNotificationsTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UserNotificationsTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82CDB9421DB7B2AD00111C63 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		82CDB9441DB7B2AD00111C63 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -61,6 +62,7 @@
 		82CDB9401DB7B2AD00111C63 /* UserNotificationsTest */ = {
 			isa = PBXGroup;
 			children = (
+				82AAF77F1DB903BD0056C031 /* UserNotificationsTest.entitlements */,
 				82CDB9441DB7B2AD00111C63 /* AppDelegate.h */,
 				82CDB9451DB7B2AD00111C63 /* AppDelegate.m */,
 				82CDB9581DB7B31900111C63 /* AppDelegate+Push.h */,
@@ -117,6 +119,11 @@
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = USZ9R7RQAA;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -277,6 +284,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = UserNotificationsTest/UserNotificationsTest.entitlements;
 				DEVELOPMENT_TEAM = USZ9R7RQAA;
 				INFOPLIST_FILE = UserNotificationsTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -289,6 +297,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = UserNotificationsTest/UserNotificationsTest.entitlements;
 				DEVELOPMENT_TEAM = USZ9R7RQAA;
 				INFOPLIST_FILE = UserNotificationsTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -316,6 +325,7 @@
 				82CDB9571DB7B2AD00111C63 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

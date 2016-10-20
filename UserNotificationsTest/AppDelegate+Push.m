@@ -8,16 +8,23 @@
 
 #import "AppDelegate+Push.h"
 #import <UserNotifications/UserNotifications.h>
+
+static NSString *kCategoryTestKey=@"category.test";
+static NSString *kCategoryTestInputKey=@"category.test.input";
+static NSString *kCategoryTestConfirmKey=@"category.test.confirm";
+
 @interface AppDelegate ()<UNUserNotificationCenterDelegate>
 
 @end
 @implementation AppDelegate (Push)
 - (void)push_application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     if ([UIDevice currentDevice].systemVersion.doubleValue>=10) {
+        [[UNUserNotificationCenter currentNotificationCenter]setDelegate:self];
         [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert) completionHandler:^(BOOL granted, NSError * _Nullable error) {
             if (granted==YES) {
                 NSLog(@"request authorization succeeded!");
-                [[UNUserNotificationCenter currentNotificationCenter]setDelegate:self];
+                [application registerForRemoteNotifications];
+                [self registerNotificationCategory];
             }else{
                 NSLog(@"request authorization failed!");
                 NSLog(@"Error:%@",error);
@@ -66,9 +73,30 @@
 #pragma mark - UNUserNotificationCenter Delegate
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler{
     
+    //在IOS10之前，当应用处于前台时，是无法展示收到的通知到，但是在IOS10，如果我们希望在应用内也展示通知的话，只需执行下面的方法
+    completionHandler(UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionSound | UNNotificationPresentationOptionAlert);
 }
 
+//这个代理方法会在用户与你推送的通知进行交互时被调用，包括用户通过通知打开了你的应用，或者点击或者触发了某个 action之后
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler{
+    NSString *lString=@"点击了通知";
+    if ([response.actionIdentifier isEqualToString:kCategoryTestInputKey]) {
+        lString=@"点击了input";
+    }else if([response.actionIdentifier isEqualToString:kCategoryTestConfirmKey]){
+        lString=@"点击了confirm";
+    }
+    UIAlertView *lA=[[UIAlertView alloc]initWithTitle:lString message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [lA show];
+}
+
+#pragma mark - Notification Category
+//注册category，根据推送的不同的categoryid可以创建不同的action
+-(void)registerNotificationCategory{
+    UNTextInputNotificationAction *lTextAction=[UNTextInputNotificationAction actionWithIdentifier:kCategoryTestInputKey title:@"text" options:UNNotificationActionOptionForeground textInputButtonTitle:@"send" textInputPlaceholder:@"please"];
     
+    UNNotificationAction *lConfirmAction=[UNNotificationAction actionWithIdentifier:kCategoryTestConfirmKey title:@"Confirm" options:UNNotificationActionOptionForeground];
+    
+    UNNotificationCategory *lCategory=[UNNotificationCategory categoryWithIdentifier:kCategoryTestKey actions:@[lTextAction,lConfirmAction] intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
+    [[UNUserNotificationCenter  currentNotificationCenter]setNotificationCategories:[NSSet setWithObjects:lCategory, nil]];
 }
 @end
