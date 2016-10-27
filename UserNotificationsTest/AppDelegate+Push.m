@@ -24,7 +24,7 @@ static NSString *kCategoryTestConfirmKey=@"category.test.confirm";
             if (granted==YES) {
                 NSLog(@"request authorization succeeded!");
                 [application registerForRemoteNotifications];
-                [self registerNotificationCategory];
+//                [self registerNotificationCategory];
             }else{
                 NSLog(@"request authorization failed!");
                 NSLog(@"Error:%@",error);
