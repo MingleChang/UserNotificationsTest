@@ -299,8 +299,8 @@
 			projectRoot = "";
 			targets = (
 				82CDB93D1DB7B2AC00111C63 /* UserNotificationsTest */,
-				82931F0A1DC2412D001F1C32 /* NotificationContent */,
 				82931F231DC24236001F1C32 /* NotificationService */,
+				82931F0A1DC2412D001F1C32 /* NotificationContent */,
 			);
 		};
 /* End PBXProject section */
