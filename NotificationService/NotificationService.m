@@ -8,6 +8,8 @@
 
 #import "NotificationService.h"
 
+static NSString *kCategoryServiceKey=@"category.notificationservice";
+
 @interface NotificationService ()
 
 @property (nonatomic, strong) void (^contentHandler)(UNNotificationContent *contentToDeliver);
@@ -21,6 +23,11 @@
     self.contentHandler = contentHandler;
     self.bestAttemptContent = [request.content mutableCopy];
     
+    if (![self.bestAttemptContent.categoryIdentifier isEqualToString:kCategoryServiceKey]) {
+        self.contentHandler(self.bestAttemptContent);
+        return;
+    }
+    
     // 根据收到的推送request修改推送显示的信息
     self.bestAttemptContent.title = [NSString stringWithFormat:@"%@ [NotificationService]", self.bestAttemptContent.title];
     self.bestAttemptContent.subtitle = [NSString stringWithFormat:@"%@ [NotificationService]", self.bestAttemptContent.subtitle];
@@ -29,7 +36,7 @@
     NSDictionary *lApsDic = self.bestAttemptContent.userInfo[@"aps"];
     NSString *lImageUrl=lApsDic[@"image"];
     if (lImageUrl.length>0) {
-        [self loadAttachmentForUrlString:lImageUrl withType:@"png" completionHandle:^(UNNotificationAttachment *attach) {
+        [self loadAttachmentForUrlString:lImageUrl withType:@"jpg" completionHandle:^(UNNotificationAttachment *attach) {
             if (attach) {
                 self.bestAttemptContent.attachments = [NSArray arrayWithObject:attach];
             }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		821653F01DCE28AC006C2CB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82CDB94D1DB7B2AD00111C63 /* Assets.xcassets */; };
 		82931F0E1DC2412E001F1C32 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82931F0D1DC2412E001F1C32 /* UserNotifications.framework */; };
 		82931F101DC2412E001F1C32 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82931F0F1DC2412E001F1C32 /* UserNotificationsUI.framework */; };
 		82931F141DC2412E001F1C32 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82931F131DC2412E001F1C32 /* NotificationViewController.m */; };
@@ -278,6 +279,9 @@
 						DevelopmentTeam = USZ9R7RQAA;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -310,6 +314,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				821653F01DCE28AC006C2CB9 /* Assets.xcassets in Resources */,
 				82931F171DC2412E001F1C32 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
